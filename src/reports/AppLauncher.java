@@ -1,7 +1,6 @@
 package reports;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -16,89 +15,61 @@ import org.testng.xml.XmlTest;
 
 public class AppLauncher {
 
-    // --- GLOBAL VARIABLES ---
+    // Global variables
     private static JButton btnUpload;
     private static JButton btnRun;
     private static JLabel lblStatus;
     private static String[] selectedPath = {null}; 
     private static JDialog progressDialog; // The Loader Window
 
-    // Dynamic Base Path (Current Folder)
-    private static final String APP_DIR = System.getProperty("user.dir");
-
     public static void main(String[] args) {
-        
-        // 1. Setup Main Window (Your UI Style)
+        // 1. Setup Main Window
         JFrame frame = new JFrame("ResIQ Automation Tool");
-        frame.setSize(500, 450);
+        frame.setSize(500, 420);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new GridBagLayout());
         
-        // Layout Constraints
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 25, 10, 25);
+        gbc.insets = new Insets(10, 15, 10, 15);
         gbc.gridx = 0; 
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // 2. UI Elements
         JLabel lblTitle = new JLabel("ResIQ Automation Launcher", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
         
         JLabel lblSelect = new JLabel("Select Automation Script:");
-        lblSelect.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblSelect.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         String[] testOptions = { 
             "1. Create Projects (Data Driven)", 
-            "2. Count Projects Per Client", 
-            "3. Grid UI Validation" 
+//            "2. Count Projects Per Client", 
+//            "3. Grid UI Validation" 
         };
-        
         JComboBox<String> cmbTests = new JComboBox<>(testOptions);
-        cmbTests.setPreferredSize(new Dimension(300, 35));
-        
-        // --- FIX: NUCLEAR DROPDOWN RENDERER (Prevents Blank Text) ---
-        cmbTests.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (isSelected) {
-                    c.setBackground(new Color(220, 220, 220)); // Light Grey Highlight
-                    c.setForeground(Color.BLACK);
-                } else {
-                    c.setBackground(Color.WHITE);
-                    c.setForeground(Color.BLACK);
-                }
-                return c;
-            }
-        });
-        cmbTests.setForeground(Color.BLACK);
-        cmbTests.setBackground(Color.WHITE);
-        // -----------------------------------------------------------
+        cmbTests.setPreferredSize(new Dimension(250, 35));
 
         btnUpload = new JButton("Select Excel File");
-        btnUpload.setPreferredSize(new Dimension(300, 40));
-        btnUpload.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        btnUpload.setPreferredSize(new Dimension(250, 40));
 
         btnRun = new JButton("Run Automation");
-        btnRun.setPreferredSize(new Dimension(300, 40));
+        btnRun.setPreferredSize(new Dimension(250, 40));
         btnRun.setBackground(new Color(40, 167, 69)); // Green
         btnRun.setForeground(Color.WHITE);
-        btnRun.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnRun.setEnabled(false); 
 
         lblStatus = new JLabel("Status: Waiting for input...", SwingConstants.CENTER);
-        lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
-        // --- LOGIC: Handle Dropdown Selection ---
+        // --- Logic: Handle Grid Test (No Excel) ---
         cmbTests.addActionListener(e -> {
             String selected = (String) cmbTests.getSelectedItem();
-            if (selected.contains("Grid UI") || selected.contains("Count Projects")) {
+            if (selected.contains("Grid UI")) {
                 btnUpload.setEnabled(false);
                 btnUpload.setText("Excel Not Required");
                 btnRun.setEnabled(true);
-                lblStatus.setText("Status: Ready to run " + selected);
+                lblStatus.setText("Status: Ready to run Grid Test");
             } else {
                 btnUpload.setEnabled(true);
                 btnUpload.setText("Select Excel File");
@@ -112,12 +83,10 @@ public class AppLauncher {
             }
         });
 
-        // --- ACTION: Upload Button (Portable Path) ---
+        // 3. Action: Upload
         btnUpload.addActionListener(e -> {
-            // Open File Chooser in the APP DIRECTORY (Portable)
-            JFileChooser fileChooser = new JFileChooser(APP_DIR);
+            JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx", "xls"));
-            
             int option = fileChooser.showOpenDialog(frame);
             if(option == JFileChooser.APPROVE_OPTION){
                 File file = fileChooser.getSelectedFile();
@@ -127,7 +96,7 @@ public class AppLauncher {
             }
         });
 
-        // --- ACTION: Run Button ---
+        // 4. Action: Run
         btnRun.addActionListener(e -> {
             lblStatus.setText("Status: Initializing...");
             btnRun.setEnabled(false);
@@ -139,14 +108,13 @@ public class AppLauncher {
 
             new Thread(() -> {
                 try {
-                    // Set Excel Property for Tests
                     if (selectedPath[0] != null) {
                         System.setProperty("custom.excel.path", selectedPath[0]);
                     }
 
                     // --- BUILD XML SUITE ---
                     XmlSuite suite = new XmlSuite();
-                    suite.setName("ResIQ_Portable_Suite");
+                    suite.setName("ResIQ_Offline_Suite");
 
                     XmlTest test = new XmlTest(suite);
                     test.setName("Selected_Test_Run");
@@ -154,8 +122,6 @@ public class AppLauncher {
                     List<XmlClass> classes = new ArrayList<>();
                     String selected = (String) cmbTests.getSelectedItem();
                     
-                    // --- MAP DROPDOWN TO CLASS FILES ---
-                    // Make sure these Class Names match your files exactly!
                     if (selected.contains("Create Projects")) {
                         classes.add(new XmlClass(Project_Reports_DataDriven.class));
                     } 
@@ -170,38 +136,38 @@ public class AppLauncher {
                     List<XmlSuite> suites = new ArrayList<>();
                     suites.add(suite);
 
-                    // --- RUN TESTNG ---
                     TestNG testng = new TestNG();
                     testng.setXmlSuites(suites);
                     testng.run();
-                    
-                    // --- CLEANUP ---
-                    progressDialog.dispose(); // Close loader
+                    // -----------------------
+
+                    // HIDE LOADER
+                    progressDialog.dispose();
 
                     lblStatus.setText("Status: Completed!");
-                    JOptionPane.showMessageDialog(frame, "Success! Automation finished.");
                     openLatestReport();
+                    JOptionPane.showMessageDialog(frame, "Success! Automation finished.");
                     
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    if(progressDialog != null) progressDialog.dispose();
-                    lblStatus.setText("Error: Execution Failed");
+                    if(progressDialog != null) progressDialog.dispose(); // Close loader on error
+                    lblStatus.setText("Error: See Console");
                     JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage());
                 } finally {
-                    // Re-enable UI
                     cmbTests.setEnabled(true);
                     String currentSelection = (String) cmbTests.getSelectedItem();
-                    if (currentSelection.contains("Create Projects")) {
+                    if (!currentSelection.contains("Grid UI")) {
                         btnUpload.setEnabled(true);
                         btnRun.setEnabled(selectedPath[0] != null);
                     } else {
                         btnRun.setEnabled(true);
                     }
+                    lblStatus.setText("Status: Ready");
                 }
             }).start();
         });
 
-        // 3. Add Components to Frame
+        // 5. Add to Frame
         frame.add(lblTitle, gbc);
         gbc.gridy++;
         frame.add(lblSelect, gbc);
@@ -217,23 +183,24 @@ public class AppLauncher {
         frame.setVisible(true);
     }
 
-    // --- LOADER METHOD ---
+    // --- NEW: PROGRESS LOADER METHOD ---
     private static void showProgressDialog(JFrame parent) {
-        progressDialog = new JDialog(parent, "Executing...", false); 
-        progressDialog.setSize(300, 100);
+        progressDialog = new JDialog(parent, "Executing...", false); // false = not modal (allows background thread)
+        progressDialog.setSize(300, 120);
         progressDialog.setLocationRelativeTo(parent);
         progressDialog.setLayout(new BorderLayout());
-        progressDialog.setUndecorated(true);
+        progressDialog.setUndecorated(true); // Removes title bar for "modern" look
         
+        // Add a nice border
         ((JComponent)progressDialog.getContentPane()).setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
-        JLabel msgLabel = new JLabel("Executing Script... Please Wait", SwingConstants.CENTER);
-        msgLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        msgLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        JLabel msgLabel = new JLabel("Automation in Progress... Please Wait", SwingConstants.CENTER);
+        msgLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        msgLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JProgressBar progressBar = new JProgressBar();
-        progressBar.setIndeterminate(true); 
-        progressBar.setForeground(new Color(40, 167, 69));
+        progressBar.setIndeterminate(true); // Makes the bar bounce back and forth
+        progressBar.setForeground(new Color(40, 167, 69)); // Green loader
 
         progressDialog.add(msgLabel, BorderLayout.NORTH);
         progressDialog.add(progressBar, BorderLayout.CENTER);
@@ -241,24 +208,22 @@ public class AppLauncher {
         progressDialog.setVisible(true);
     }
 
-    // --- REPORT OPENER ---
+    // Helper to open report
     private static void openLatestReport() {
         try {
-            // Look for 'Reports' folder in the App Directory
-            File reportFolder = new File(APP_DIR + File.separator + "Reports");
+            File reportFolder = new File(System.getProperty("user.dir") + "/Reports");
             if (reportFolder.exists() && reportFolder.isDirectory()) {
                 File[] files = reportFolder.listFiles();
                 if (files != null && files.length > 0) {
-                    // Sort by newest first
                     Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
-                    File newest = files[0];
+                    File newestFolder = files[0];
+                    File reportFile = new File(newestFolder, "ProjectCreationReport.html");
                     if (Desktop.isDesktopSupported()) {
-                         Desktop.getDesktop().open(newest);
+                        if (reportFile.exists()) Desktop.getDesktop().open(reportFile);
+                        else Desktop.getDesktop().open(newestFolder);
                     }
                 }
             }
-        } catch (Exception e) { 
-            System.out.println("Could not open report: " + e.getMessage());
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }
