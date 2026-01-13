@@ -1,271 +1,427 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="9" passed="9" failed="0" skipped="0">
+<testng-results ignored="0" total="6" passed="1" failed="5" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-01-12T18:00:02 IST" name="Default suite" finished-at="2026-01-12T18:03:13 IST" duration-ms="191190">
+  <suite started-at="2026-01-13T16:17:18 IST" name="System_Suite" finished-at="2026-01-13T16:18:16 IST" duration-ms="57887">
     <groups>
     </groups>
-    <test started-at="2026-01-12T18:00:02 IST" name="Default test" finished-at="2026-01-12T18:03:13 IST" duration-ms="191190">
+    <test started-at="2026-01-13T16:17:18 IST" name="Test_Run" finished-at="2026-01-13T16:18:16 IST" duration-ms="57887">
       <class name="reports.Project_Grid_Test">
-        <test-method is-config="true" signature="setupReport()[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:01 IST" name="setupReport" finished-at="2026-01-12T18:00:02 IST" duration-ms="1030" status="PASS">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:18 IST" name="setupReport" finished-at="2026-01-13T16:17:18 IST" duration-ms="722" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupReport -->
-        <test-method is-config="true" signature="setupBrowser()[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:02 IST" name="setupBrowser" finished-at="2026-01-12T18:00:07 IST" duration-ms="5162" status="PASS">
+        <test-method is-config="true" signature="setupBrowser()[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:18 IST" name="setupBrowser" finished-at="2026-01-13T16:17:22 IST" duration-ms="3100" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupBrowser -->
-        <test-method signature="verifySearchFilter(java.lang.String)[pri:1, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:07 IST" name="verifySearchFilter" data-provider="searchData" finished-at="2026-01-12T18:00:31 IST" duration-ms="23742" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[American Board of Ophthalmology]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="verifySearchFilter()[pri:1, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:22 IST" name="verifySearchFilter" finished-at="2026-01-13T16:17:34 IST" duration-ms="12844" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:305)
+at reports.Project_Grid_Test.verifySearchFilter(Project_Grid_Test.java:38)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at reports.AppLauncher.lambda$1(AppLauncher.java:91)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifySearchFilter -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:31 IST" name="captureAfterEach" finished-at="2026-01-12T18:00:31 IST" duration-ms="5" status="PASS">
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:34 IST" name="captureAfterEach" finished-at="2026-01-13T16:17:34 IST" duration-ms="10" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=verifySearchFilter status=SUCCESS method=Project_Grid_Test.verifySearchFilter(java.lang.String)[pri:1, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
+                <![CDATA[[TestResult name=verifySearchFilter status=FAILURE method=Project_Grid_Test.verifySearchFilter()[pri:1, instance:reports.Project_Grid_Test@3734d191] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyColumnSorting(java.lang.String,java.lang.String)[pri:2, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:31 IST" name="verifyColumnSorting" data-provider="sortingData" finished-at="2026-01-12T18:00:46 IST" duration-ms="15235" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Client]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[companyName]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="verifySorting()[pri:2, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:34 IST" name="verifySorting" finished-at="2026-01-13T16:17:34 IST" duration-ms="5" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:305)
+at reports.Project_Grid_Test.verifySorting(Project_Grid_Test.java:82)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at reports.AppLauncher.lambda$1(AppLauncher.java:91)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyColumnSorting -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:46 IST" name="captureAfterEach" finished-at="2026-01-12T18:00:46 IST" duration-ms="5" status="PASS">
+        </test-method> <!-- verifySorting -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:34 IST" name="captureAfterEach" finished-at="2026-01-13T16:17:34 IST" duration-ms="5" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=verifyColumnSorting status=SUCCESS method=Project_Grid_Test.verifyColumnSorting(java.lang.String,java.lang.String)[pri:2, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyColumnSorting(java.lang.String,java.lang.String)[pri:2, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:00:46 IST" name="verifyColumnSorting" data-provider="sortingData" finished-at="2026-01-12T18:01:02 IST" duration-ms="15709" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Project Name]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[projectName]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyColumnSorting -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:02 IST" name="captureAfterEach" finished-at="2026-01-12T18:01:02 IST" duration-ms="2" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=verifyColumnSorting status=SUCCESS method=Project_Grid_Test.verifyColumnSorting(java.lang.String,java.lang.String)[pri:2, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyColumnSorting(java.lang.String,java.lang.String)[pri:2, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:02 IST" name="verifyColumnSorting" data-provider="sortingData" finished-at="2026-01-12T18:01:16 IST" duration-ms="14755" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Source]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[source]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyColumnSorting -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:16 IST" name="captureAfterEach" finished-at="2026-01-12T18:01:16 IST" duration-ms="0" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=verifyColumnSorting status=SUCCESS method=Project_Grid_Test.verifyColumnSorting(java.lang.String,java.lang.String)[pri:2, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
+                <![CDATA[[TestResult name=verifySorting status=FAILURE method=Project_Grid_Test.verifySorting()[pri:2, instance:reports.Project_Grid_Test@3734d191] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:16 IST" name="verifyHideColumn" data-provider="hideColumnData" finished-at="2026-01-12T18:01:32 IST" duration-ms="15056" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Client]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[companyName]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[//button[@aria-label='Client column menu']]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="verifyHideAllColumns()[pri:3, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:17:34 IST" name="verifyHideAllColumns" finished-at="2026-01-13T16:18:16 IST" duration-ms="41181" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyHideColumn -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:32 IST" name="captureAfterEach" finished-at="2026-01-12T18:01:32 IST" duration-ms="0" status="PASS">
+        </test-method> <!-- verifyHideAllColumns -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="captureAfterEach" finished-at="2026-01-13T16:18:16 IST" duration-ms="0" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=verifyHideColumn status=SUCCESS method=Project_Grid_Test.verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
+                <![CDATA[[TestResult name=verifyHideAllColumns status=SUCCESS method=Project_Grid_Test.verifyHideAllColumns()[pri:3, instance:reports.Project_Grid_Test@3734d191] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:32 IST" name="verifyHideColumn" data-provider="hideColumnData" finished-at="2026-01-12T18:01:47 IST" duration-ms="15006" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Project Name]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[projectName]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[//button[@aria-label='Project Name column menu']]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyHideColumn -->
-        <test-method signature="verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:47 IST" name="verifyHideColumn" data-provider="hideColumnData" finished-at="2026-01-12T18:02:01 IST" duration-ms="14852" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Source]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[source]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[//button[@aria-label='Source column menu']]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyHideColumn -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:01:47 IST" name="captureAfterEach" finished-at="2026-01-12T18:01:47 IST" duration-ms="0" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=verifyHideColumn status=SUCCESS method=Project_Grid_Test.verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:02:01 IST" name="verifyHideColumn" data-provider="hideColumnData" finished-at="2026-01-12T18:02:16 IST" duration-ms="14554" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Active]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[active]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[//button[@aria-label='Active column menu']]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyHideColumn -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:02:01 IST" name="captureAfterEach" finished-at="2026-01-12T18:02:01 IST" duration-ms="0" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=verifyHideColumn status=SUCCESS method=Project_Grid_Test.verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- captureAfterEach -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:02:16 IST" name="captureAfterEach" finished-at="2026-01-12T18:02:16 IST" duration-ms="2" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=verifyHideColumn status=SUCCESS method=Project_Grid_Test.verifyHideColumn(java.lang.String,java.lang.String,java.lang.String)[pri:3, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- captureAfterEach -->
-        <test-method signature="verifyPaginationFullTraversal()[pri:4, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:02:16 IST" name="verifyPaginationFullTraversal" finished-at="2026-01-12T18:03:11 IST" duration-ms="55269" status="PASS">
+        <test-method signature="verifyPaginationFullTraversal()[pri:4, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="verifyPaginationFullTraversal" finished-at="2026-01-13T16:18:16 IST" duration-ms="6" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, refresh {}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, refresh {}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:596)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:600)
+at org.openqa.selenium.remote.RemoteWebDriver$RemoteNavigation.refresh(RemoteWebDriver.java:1078)
+at reports.Project_Grid_Test.verifyPaginationFullTraversal(Project_Grid_Test.java:208)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at reports.AppLauncher.lambda$1(AppLauncher.java:91)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyPaginationFullTraversal -->
-        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:03:11 IST" name="captureAfterEach" finished-at="2026-01-12T18:03:11 IST" duration-ms="10" status="PASS">
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="captureAfterEach" finished-at="2026-01-13T16:18:16 IST" duration-ms="3" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=verifyPaginationFullTraversal status=SUCCESS method=Project_Grid_Test.verifyPaginationFullTraversal()[pri:4, instance:reports.Project_Grid_Test@127e70c5] output={null}]]]>
+                <![CDATA[[TestResult name=verifyPaginationFullTraversal status=FAILURE method=Project_Grid_Test.verifyPaginationFullTraversal()[pri:4, instance:reports.Project_Grid_Test@3734d191] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- captureAfterEach -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:reports.Project_Grid_Test@127e70c5]" started-at="2026-01-12T18:03:11 IST" name="tearDown" finished-at="2026-01-12T18:03:13 IST" duration-ms="1559" status="PASS">
+        <test-method signature="verifySortingproj()[pri:5, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="verifySortingproj" finished-at="2026-01-13T16:18:16 IST" duration-ms="4" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:305)
+at reports.Project_Grid_Test.verifySortingproj(Project_Grid_Test.java:262)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at reports.AppLauncher.lambda$1(AppLauncher.java:91)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySortingproj -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="captureAfterEach" finished-at="2026-01-13T16:18:16 IST" duration-ms="3" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifySortingproj status=FAILURE method=Project_Grid_Test.verifySortingproj()[pri:5, instance:reports.Project_Grid_Test@3734d191] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method signature="verifySortingsource()[pri:6, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="verifySortingsource" finished-at="2026-01-13T16:18:16 IST" duration-ms="4" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchWindowException">
+            <message>
+              <![CDATA[no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=143.0.3650.139)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [efbbcb731e383035bd25b863683caded, get {url=https://atresiq-demo-augqbvgzbjgjash3.centralindia-01.azurewebsites.net/admin/projects}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 143.0.3650.139, fedcm:accounts: true, goog:processID: 2544, ms:edgeOptions: {debuggerAddress: localhost:60821}, msedge: {msedgedriverVersion: 143.0.3650.96 (d55fe85d0141..., userDataDir: C:\Users\VARADD~1\AppData\L...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60821/devtoo..., se:cdpVersion: 143.0.3650.139, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: efbbcb731e383035bd25b863683caded
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:305)
+at reports.Project_Grid_Test.verifySortingsource(Project_Grid_Test.java:321)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at reports.AppLauncher.lambda$1(AppLauncher.java:91)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySortingsource -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="captureAfterEach" finished-at="2026-01-13T16:18:16 IST" duration-ms="3" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifySortingsource status=FAILURE method=Project_Grid_Test.verifySortingsource()[pri:6, instance:reports.Project_Grid_Test@3734d191] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:reports.Project_Grid_Test@3734d191]" started-at="2026-01-13T16:18:16 IST" name="tearDown" finished-at="2026-01-13T16:18:16 IST" duration-ms="628" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- reports.Project_Grid_Test -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Test_Run -->
+  </suite> <!-- System_Suite -->
 </testng-results>

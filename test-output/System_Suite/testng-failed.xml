@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [System_Suite]">
+  <test thread-count="5" name="Test_Run(failed)">
+    <classes>
+      <class name="reports.Project_Grid_Test">
+        <methods>
+          <include name="captureAfterEach"/>
+          <include name="verifySearchFilter"/>
+          <include name="verifySortingsource"/>
+          <include name="verifySortingproj"/>
+          <include name="setupReport"/>
+          <include name="tearDown"/>
+          <include name="verifySorting"/>
+          <include name="setupBrowser"/>
+          <include name="verifyPaginationFullTraversal"/>
+        </methods>
+      </class> <!-- reports.Project_Grid_Test -->
+    </classes>
+  </test> <!-- Test_Run(failed) -->
+</suite> <!-- Failed suite [System_Suite] -->
