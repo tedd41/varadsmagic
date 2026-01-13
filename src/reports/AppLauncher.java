@@ -1,15 +1,13 @@
 package reports;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.prefs.Preferences;
 
-// TestNG Imports
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -17,202 +15,215 @@ import org.testng.xml.XmlTest;
 
 public class AppLauncher {
 
-    // --- GLOBAL VARIABLES ---
-    private static JFrame frame;
-    private static JTextArea logArea;
+    // Global variables
     private static JButton btnUpload;
     private static JButton btnRun;
     private static JLabel lblStatus;
-    private static JLabel lblFileSelected;
-    
-    // Data holders
-    private static String selectedFilePath = null;
-    
-    // Get the folder where the .exe is running
-    private static final String APP_DIR = System.getProperty("user.dir");
+    private static String[] selectedPath = {null}; 
+    private static JDialog progressDialog; // The Loader Window
 
     public static void main(String[] args) {
-        
-        // 1. SETUP RELATIVE PATHS (The "Portable" Fix)
-        setupPortableEnvironment();
-
-        // 2. UI THEME
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) { }
-
-        // 3. MAIN WINDOW
-        frame = new JFrame("ResIQ Automation Launcher (Portable)");
-        frame.setSize(650, 550);
+        // 1. Setup Main Window
+        JFrame frame = new JFrame("ResIQ Automation Tool");
+        frame.setSize(500, 420);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setLayout(new BorderLayout());
-
-        // --- CONTROLS PANEL ---
-        JPanel panelControls = new JPanel(new GridBagLayout());
-        panelControls.setBorder(new EmptyBorder(20, 20, 10, 20));
-
+        frame.setLayout(new GridBagLayout());
+        
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8, 5, 8, 5);
+        gbc.insets = new Insets(10, 15, 10, 15);
+        gbc.gridx = 0; 
+        gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-        gbc.gridx = 0; gbc.gridy = 0;
 
-        // Title
-        JLabel lblTitle = new JLabel("🚀 ResIQ Automation (Portable)", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        panelControls.add(lblTitle, gbc);
-
-        // Test Selector
-        gbc.gridy++;
-        panelControls.add(new JLabel("Select Test Scenario:"), gbc);
-
-        gbc.gridy++;
+        // 2. UI Elements
+        JLabel lblTitle = new JLabel("ResIQ Automation Launcher", SwingConstants.CENTER);
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        
+        JLabel lblSelect = new JLabel("Select Automation Script:");
+        lblSelect.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        
         String[] testOptions = { 
-            "1. Filter Logic (Excel Driven)", 
-            "2. Count Projects", 
+            "1. Create Projects (Data Driven)", 
+            "2. Count Projects Per Client", 
             "3. Grid UI Validation" 
         };
         JComboBox<String> cmbTests = new JComboBox<>(testOptions);
-        panelControls.add(cmbTests, gbc);
+        cmbTests.setPreferredSize(new Dimension(250, 35));
 
-        // Upload Button
-        gbc.gridy++;
-        btnUpload = new JButton("📂 Select Excel File");
-        lblFileSelected = new JLabel("No file selected");
-        JPanel filePanel = new JPanel(new BorderLayout(10, 0));
-        filePanel.add(btnUpload, BorderLayout.WEST);
-        filePanel.add(lblFileSelected, BorderLayout.CENTER);
-        panelControls.add(filePanel, gbc);
+        btnUpload = new JButton("Select Excel File");
+        btnUpload.setPreferredSize(new Dimension(250, 40));
 
-        // Run Button
-        gbc.gridy++;
-        btnRun = new JButton("▶ Run Automation");
-        btnRun.setBackground(new Color(40, 167, 69));
+        btnRun = new JButton("Run Automation");
+        btnRun.setPreferredSize(new Dimension(250, 40));
+        btnRun.setBackground(new Color(40, 167, 69)); // Green
         btnRun.setForeground(Color.WHITE);
-        btnRun.setEnabled(false);
-        panelControls.add(btnRun, gbc);
+        btnRun.setEnabled(false); 
 
-        // Status
-        gbc.gridy++;
-        lblStatus = new JLabel("Status: Ready", SwingConstants.CENTER);
-        panelControls.add(lblStatus, gbc);
+        lblStatus = new JLabel("Status: Waiting for input...", SwingConstants.CENTER);
 
-        // --- LOG PANEL ---
-        logArea = new JTextArea();
-        logArea.setEditable(false);
-        logArea.setBackground(new Color(40, 44, 52));
-        logArea.setForeground(Color.WHITE);
-        JScrollPane scrollPane = new JScrollPane(logArea);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Execution Logs"));
-        
-        frame.add(panelControls, BorderLayout.NORTH);
-        frame.add(scrollPane, BorderLayout.CENTER);
-
-        // --- LISTENERS ---
-
-        // Test Selection Logic
+        // --- Logic: Handle Grid Test (No Excel) ---
         cmbTests.addActionListener(e -> {
             String selected = (String) cmbTests.getSelectedItem();
             if (selected.contains("Grid UI")) {
                 btnUpload.setEnabled(false);
                 btnUpload.setText("Excel Not Required");
                 btnRun.setEnabled(true);
+                lblStatus.setText("Status: Ready to run Grid Test");
             } else {
                 btnUpload.setEnabled(true);
-                btnUpload.setText("📂 Select Excel File");
-                btnRun.setEnabled(selectedFilePath != null);
+                btnUpload.setText("Select Excel File");
+                if (selectedPath[0] != null) {
+                    btnRun.setEnabled(true);
+                    lblStatus.setText("Status: File selected");
+                } else {
+                    btnRun.setEnabled(false);
+                    lblStatus.setText("Status: Please select Excel file");
+                }
             }
         });
 
-        // Upload Logic (Starts in App Folder now)
+        // 3. Action: Upload
         btnUpload.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser(APP_DIR); // Open in current folder
+            JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx", "xls"));
-            
             int option = fileChooser.showOpenDialog(frame);
             if(option == JFileChooser.APPROVE_OPTION){
                 File file = fileChooser.getSelectedFile();
-                selectedFilePath = file.getAbsolutePath();
-                lblFileSelected.setText(file.getName());
+                selectedPath[0] = file.getAbsolutePath();
+                lblStatus.setText("File: " + file.getName());
                 btnRun.setEnabled(true);
-                log("Selected: " + selectedFilePath);
             }
         });
 
-        // Run Logic
+        // 4. Action: Run
         btnRun.addActionListener(e -> {
+            lblStatus.setText("Status: Initializing...");
             btnRun.setEnabled(false);
-            lblStatus.setText("Status: Running...");
-            log("--- STARTING TEST ---");
+            btnUpload.setEnabled(false);
+            cmbTests.setEnabled(false);
+            
+            // SHOW THE LOADER
+            showProgressDialog(frame);
 
             new Thread(() -> {
                 try {
-                    // Pass the Excel path to the Test Class
-                    if (selectedFilePath != null) {
-                        System.setProperty("custom.excel.path", selectedFilePath);
+                    if (selectedPath[0] != null) {
+                        System.setProperty("custom.excel.path", selectedPath[0]);
                     }
 
-                    // Setup TestNG
-                    TestNG testng = new TestNG();
+                    // --- BUILD XML SUITE ---
                     XmlSuite suite = new XmlSuite();
-                    suite.setName("Portable_Suite");
+                    suite.setName("ResIQ_Offline_Suite");
+
                     XmlTest test = new XmlTest(suite);
-                    test.setName("Run_1");
+                    test.setName("Selected_Test_Run");
                     
                     List<XmlClass> classes = new ArrayList<>();
-                    // NOTE: Add your real class names here
-                    classes.add(new XmlClass(Project_Grid_Test.class)); 
+                    String selected = (String) cmbTests.getSelectedItem();
                     
+                    if (selected.contains("Create Projects")) {
+                        classes.add(new XmlClass(Project_Reports_DataDriven.class));
+                    } 
+                    else if (selected.contains("Count Projects")) {
+                        classes.add(new XmlClass(Project_Count_Test.class));
+                    }
+                    else if (selected.contains("Grid UI")) {
+                        classes.add(new XmlClass(Project_Grid_Test.class));
+                    }
+
                     test.setXmlClasses(classes);
                     List<XmlSuite> suites = new ArrayList<>();
                     suites.add(suite);
+
+                    TestNG testng = new TestNG();
                     testng.setXmlSuites(suites);
-                    
                     testng.run();
+                    // -----------------------
 
-                    SwingUtilities.invokeLater(() -> {
-                        lblStatus.setText("Status: Completed");
-                        JOptionPane.showMessageDialog(frame, "Execution Finished!");
-                        btnRun.setEnabled(true);
-                    });
+                    // HIDE LOADER
+                    progressDialog.dispose();
 
+                    lblStatus.setText("Status: Completed!");
+                    openLatestReport();
+                    JOptionPane.showMessageDialog(frame, "Success! Automation finished.");
+                    
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    log("Error: " + ex.getMessage());
-                    SwingUtilities.invokeLater(() -> btnRun.setEnabled(true));
+                    if(progressDialog != null) progressDialog.dispose(); // Close loader on error
+                    lblStatus.setText("Error: See Console");
+                    JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage());
+                } finally {
+                    cmbTests.setEnabled(true);
+                    String currentSelection = (String) cmbTests.getSelectedItem();
+                    if (!currentSelection.contains("Grid UI")) {
+                        btnUpload.setEnabled(true);
+                        btnRun.setEnabled(selectedPath[0] != null);
+                    } else {
+                        btnRun.setEnabled(true);
+                    }
+                    lblStatus.setText("Status: Ready");
                 }
             }).start();
         });
 
+        // 5. Add to Frame
+        frame.add(lblTitle, gbc);
+        gbc.gridy++;
+        frame.add(lblSelect, gbc);
+        gbc.gridy++;
+        frame.add(cmbTests, gbc);
+        gbc.gridy++;
+        frame.add(btnUpload, gbc);
+        gbc.gridy++;
+        frame.add(btnRun, gbc);
+        gbc.gridy++;
+        frame.add(lblStatus, gbc);
+
         frame.setVisible(true);
-        log("App started in: " + APP_DIR);
-        log("Driver path set to: " + System.getProperty("webdriver.edge.driver"));
     }
 
-    // --- HELPER METHODS ---
+    // --- NEW: PROGRESS LOADER METHOD ---
+    private static void showProgressDialog(JFrame parent) {
+        progressDialog = new JDialog(parent, "Executing...", false); // false = not modal (allows background thread)
+        progressDialog.setSize(300, 120);
+        progressDialog.setLocationRelativeTo(parent);
+        progressDialog.setLayout(new BorderLayout());
+        progressDialog.setUndecorated(true); // Removes title bar for "modern" look
+        
+        // Add a nice border
+        ((JComponent)progressDialog.getContentPane()).setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
-    private static void setupPortableEnvironment() {
-        // Look for 'drivers' folder next to the .exe
-        String driverPath = APP_DIR + File.separator + "drivers" + File.separator + "msedgedriver.exe";
-        File driverFile = new File(driverPath);
+        JLabel msgLabel = new JLabel("Automation in Progress... Please Wait", SwingConstants.CENTER);
+        msgLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        msgLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        if (driverFile.exists()) {
-            System.setProperty("webdriver.edge.driver", driverPath);
-        } else {
-            // Fallback: Check if it's in the root folder
-            String rootPath = APP_DIR + File.separator + "msedgedriver.exe";
-            if (new File(rootPath).exists()) {
-                System.setProperty("webdriver.edge.driver", rootPath);
-            } else {
-                JOptionPane.showMessageDialog(null, 
-                    "Driver Error:\nCould not find msedgedriver.exe in:\n" + driverPath + "\n\nPlease ensure the 'drivers' folder is next to the app.", 
-                    "Missing Component", JOptionPane.ERROR_MESSAGE);
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setIndeterminate(true); // Makes the bar bounce back and forth
+        progressBar.setForeground(new Color(40, 167, 69)); // Green loader
+
+        progressDialog.add(msgLabel, BorderLayout.NORTH);
+        progressDialog.add(progressBar, BorderLayout.CENTER);
+
+        progressDialog.setVisible(true);
+    }
+
+    // Helper to open report
+    private static void openLatestReport() {
+        try {
+            File reportFolder = new File(System.getProperty("user.dir") + "/Reports");
+            if (reportFolder.exists() && reportFolder.isDirectory()) {
+                File[] files = reportFolder.listFiles();
+                if (files != null && files.length > 0) {
+                    Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
+                    File newestFolder = files[0];
+                    File reportFile = new File(newestFolder, "ProjectCreationReport.html");
+                    if (Desktop.isDesktopSupported()) {
+                        if (reportFile.exists()) Desktop.getDesktop().open(reportFile);
+                        else Desktop.getDesktop().open(newestFolder);
+                    }
+                }
             }
-        }
-    }
-
-    private static void log(String msg) {
-        SwingUtilities.invokeLater(() -> logArea.append(">> " + msg + "\n"));
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }
