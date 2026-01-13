@@ -2,24 +2,19 @@ package reports;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
-
+import javax.swing.JOptionPane; // Added for Error Popups
 import org.openqa.selenium.*;
-// 1. CHANGED: Using Edge instead of Chrome
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.*;
-
-import org.testng.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
-
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -47,64 +42,53 @@ public class Project_Reports {
 
         extent = new ExtentReports();
         extent.attachReporter(reporter);
-        extent.setSystemInfo("Tester", "Varad");
+        extent.setSystemInfo("Tester", System.getProperty("user.name")); // Dynamic Tester Name
         extent.setSystemInfo("Environment", "QA");
-        extent.setSystemInfo("Browser", "Microsoft Edge");
+        extent.setSystemInfo("Browser", "System Edge");
     }
 
     @BeforeClass
     public void setupBrowser() {
-        // 2. CHANGED: Setup Offline Edge Driver
-        setupOfflineDriver();
+        // 1. CHANGED: REMOVED setupOfflineDriver() call.
+        // We now rely on Selenium Manager (built-in to Selenium 4.16+) to find the system Edge.
 
-        // 3. CHANGED: Configure Edge Options
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--start-maximized");
 
-        // 4. CHANGED: Initialize Edge Driver
-        driver = new EdgeDriver(options);
+        // 2. CHANGED: DYNAMICALLY FIND USER PROFILE
+        // This makes it work on ANY computer, not just yours.
+        String userHome = System.getProperty("user.home");
+        String edgeDataPath = userHome + "\\AppData\\Local\\Microsoft\\Edge\\User Data";
         
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        js = (JavascriptExecutor) driver;
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
+        File profileDir = new File(edgeDataPath);
+        if (profileDir.exists()) {
+            options.addArguments("user-data-dir=" + edgeDataPath);
+            options.addArguments("profile-directory=Default"); 
+            System.out.println("✅ Attached to System Edge Profile: " + edgeDataPath);
+        } else {
+            System.out.println("⚠️ System Profile not found, launching generic session.");
+        }
 
-    // ================= OFFLINE DRIVER LOGIC (EDGE) =================
-    
-    public void setupOfflineDriver() {
         try {
-            // Look for msedgedriver.exe in the 'drivers' folder inside resources
-            InputStream is = getClass().getResourceAsStream("/drivers/msedgedriver.exe");
+            // 3. CHANGED: Driver Initialization
+            // This triggers Selenium Manager to find the installed Edge and connect to it.
+            driver = new EdgeDriver(options);
             
-            // Fallback for non-standard folder structures
-            if (is == null) is = getClass().getResourceAsStream("/reports/msedgedriver.exe");
-            if (is == null) is = getClass().getResourceAsStream("/msedgedriver.exe");
-
-            if (is == null) {
-                // If checking local file system (Eclipse debugging)
-                File localFile = new File("src/main/resources/drivers/msedgedriver.exe");
-                if (localFile.exists()) {
-                    System.setProperty("webdriver.edge.driver", localFile.getAbsolutePath());
-                    return;
-                }
-                System.err.println("CRITICAL: msedgedriver.exe not found in resources!");
-                return;
-            }
-
-            // Create a temporary file on the Windows PC to run the driver
-            File tempDriver = File.createTempFile("msedgedriver_bundled", ".exe");
-            tempDriver.deleteOnExit(); 
-
-            // Copy the driver from inside the EXE/JAR to the temp file
-            Files.copy(is, tempDriver.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            // Tell Selenium to use this temp path
-            System.setProperty("webdriver.edge.driver", tempDriver.getAbsolutePath());
-            tempDriver.setExecutable(true);
-
+            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            js = (JavascriptExecutor) driver;
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            
+        } catch (SessionNotCreatedException e) {
+            // 4. ADDED: User-Friendly Error if Browser is Open
+            String msg = "Failed to launch Edge.\n\n"
+                       + "Please CLOSE ALL OPEN EDGE WINDOWS and try again.\n"
+                       + "Selenium cannot attach to the profile if it is already in use.";
+            JOptionPane.showMessageDialog(null, msg, "Browser Locked", JOptionPane.ERROR_MESSAGE);
+            throw e;
         } catch (Exception e) {
-            System.err.println("Failed to extract Edge driver: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Launch Error", JOptionPane.ERROR_MESSAGE);
+            throw e;
         }
     }
 
@@ -115,9 +99,10 @@ public class Project_Reports {
         try {
             if (result.getStatus() == ITestResult.FAILURE) {
                 String path = takeScreenshot(result.getName() + "_FAIL");
-                if (test != null) test.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+                if (test != null && path != null) 
+                    test.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(path).build());
             } else if (result.getStatus() == ITestResult.SUCCESS) {
-                 if (test != null) test.pass("Test passed");
+                if (test != null) test.pass("Test passed");
             }
         } catch (Exception e) {
             System.err.println("Screenshot issue: " + e.getMessage());
@@ -151,8 +136,9 @@ public class Project_Reports {
         }
     }
 
-    // ================= ACTION METHODS =================
-
+    // ================= ACTION METHODS (No Changes Here) =================
+    // Paste the same Helper Methods (clickSidebarItem, addProj, etc.) from your previous code here.
+    
     public static void clickSidebarItem(WebDriver driver, String menuName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@data-sidebar='menu-sub']//span | //ul[@data-sidebar='menu']//span"));
@@ -195,7 +181,8 @@ public class Project_Reports {
     public static void searPractice(WebDriver driver, String practiceName) { driver.findElement(By.xpath("//input[@placeholder='Search...']")).sendKeys(practiceName, Keys.TAB, Keys.TAB, Keys.ENTER); }
     public static void clearPractice(WebDriver driver) { 
         WebElement searchBox = driver.findElement(By.xpath("//input[@placeholder='Search...']"));
-        new Actions(driver).moveToElement(searchBox).click().perform();
+        Actions act = new Actions(driver);
+        act.moveToElement(searchBox).click().perform();
         searchBox.clear();
     }
     public static void clckProjType(WebDriver driver) { driver.findElement(By.xpath("//button[.//span[normalize-space()='-- Select Type --']]")).click(); }
@@ -204,7 +191,8 @@ public class Project_Reports {
     public static void clickHours(WebDriver driver, String hours) {
         WebElement hour = driver.findElement(By.xpath("(//input[@data-slot='input'])[3]"));
         hour.click();
-        hour.sendKeys(Keys.ARROW_LEFT, hours);
+        hour.sendKeys(Keys.CONTROL + "a", Keys.DELETE); // Added robust clear
+        hour.sendKeys(hours);
     }
     
     public static void sendate(WebDriver driver) { driver.findElement(By.xpath("(//input[@data-slot='input'])[4]")).sendKeys("01/12/2025"); }
