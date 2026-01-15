@@ -45,8 +45,8 @@ public class AppLauncher {
         
         String[] testOptions = { 
             "1. Create Projects (Data Driven)", 
-//            "2. Count Projects Per Client", 
-//            "3. Grid UI Validation" 
+            "2. Count Projects Per Client", 
+            "3. Grid UI Validation" 
         };
         JComboBox<String> cmbTests = new JComboBox<>(testOptions);
         cmbTests.setPreferredSize(new Dimension(250, 35));

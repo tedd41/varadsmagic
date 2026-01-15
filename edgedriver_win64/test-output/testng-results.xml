@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="6" passed="6" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-01-15T11:55:11 IST" name="ResIQ_Offline_Suite" finished-at="2026-01-15T11:59:14 IST" duration-ms="242441">
+    <groups>
+    </groups>
+    <test started-at="2026-01-15T11:55:11 IST" name="Selected_Test_Run" finished-at="2026-01-15T11:59:14 IST" duration-ms="242441">
+      <class name="reports.Project_Grid_Test">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:11 IST" name="setupReport" finished-at="2026-01-15T11:55:11 IST" duration-ms="537" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupReport -->
+        <test-method is-config="true" signature="setupBrowser()[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:11 IST" name="setupBrowser" finished-at="2026-01-15T11:55:16 IST" duration-ms="4361" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBrowser -->
+        <test-method signature="verifySearchFilter()[pri:1, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:16 IST" name="verifySearchFilter" finished-at="2026-01-15T11:55:38 IST" duration-ms="22038" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySearchFilter -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:38 IST" name="captureAfterEach" finished-at="2026-01-15T11:55:38 IST" duration-ms="0" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifySearchFilter status=SUCCESS method=Project_Grid_Test.verifySearchFilter()[pri:1, instance:reports.Project_Grid_Test@4fa5c9cb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method signature="verifySorting()[pri:2, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:38 IST" name="verifySorting" finished-at="2026-01-15T11:55:52 IST" duration-ms="14554" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySorting -->
+        <test-method signature="verifyHideAllColumns()[pri:3, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:52 IST" name="verifyHideAllColumns" finished-at="2026-01-15T11:57:05 IST" duration-ms="72773" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyHideAllColumns -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:55:52 IST" name="captureAfterEach" finished-at="2026-01-15T11:55:52 IST" duration-ms="0" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifySorting status=SUCCESS method=Project_Grid_Test.verifySorting()[pri:2, instance:reports.Project_Grid_Test@4fa5c9cb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:57:05 IST" name="captureAfterEach" finished-at="2026-01-15T11:57:05 IST" duration-ms="2" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifyHideAllColumns status=SUCCESS method=Project_Grid_Test.verifyHideAllColumns()[pri:3, instance:reports.Project_Grid_Test@4fa5c9cb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method signature="verifyPaginationFullTraversal()[pri:4, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:57:05 IST" name="verifyPaginationFullTraversal" finished-at="2026-01-15T11:58:38 IST" duration-ms="93398" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyPaginationFullTraversal -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:58:38 IST" name="captureAfterEach" finished-at="2026-01-15T11:58:38 IST" duration-ms="3" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifyPaginationFullTraversal status=SUCCESS method=Project_Grid_Test.verifyPaginationFullTraversal()[pri:4, instance:reports.Project_Grid_Test@4fa5c9cb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method signature="verifySortingproj()[pri:5, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:58:38 IST" name="verifySortingproj" finished-at="2026-01-15T11:58:56 IST" duration-ms="17210" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySortingproj -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:58:56 IST" name="captureAfterEach" finished-at="2026-01-15T11:58:56 IST" duration-ms="1" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifySortingproj status=SUCCESS method=Project_Grid_Test.verifySortingproj()[pri:5, instance:reports.Project_Grid_Test@4fa5c9cb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method signature="verifySortingsource()[pri:6, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:58:56 IST" name="verifySortingsource" finished-at="2026-01-15T11:59:12 IST" duration-ms="16429" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifySortingsource -->
+        <test-method is-config="true" signature="captureAfterEach(org.testng.ITestResult)[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:59:12 IST" name="captureAfterEach" finished-at="2026-01-15T11:59:12 IST" duration-ms="2" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifySortingsource status=SUCCESS method=Project_Grid_Test.verifySortingsource()[pri:6, instance:reports.Project_Grid_Test@4fa5c9cb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureAfterEach -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:reports.Project_Grid_Test@4fa5c9cb]" started-at="2026-01-15T11:59:12 IST" name="tearDown" finished-at="2026-01-15T11:59:14 IST" duration-ms="1562" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- reports.Project_Grid_Test -->
+    </test> <!-- Selected_Test_Run -->
+  </suite> <!-- ResIQ_Offline_Suite -->
+</testng-results>
