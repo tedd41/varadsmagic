@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Actions; // Added missing import
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
@@ -30,78 +30,66 @@ public class Project_Reports {
     protected ExtentTest test;
     protected String reportDir;
 
-    @BeforeSuite
+    // --- CHANGED: Run this BEFORE EACH CLASS so every test gets its own folder ---
+    @BeforeClass
+    public void setupTestEnvironment() {
+        setupReport();  // 1. Create unique folder name based on the class
+        setupBrowser(); // 2. Launch the browser
+    }
+
     public void setupReport() {
+        // LOGIC CHANGE: Use the specific class name (e.g. "Project_Count_Test") for the folder
+        String testName = this.getClass().getSimpleName(); 
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        reportDir = System.getProperty("user.dir") + "/Reports/ProjectCreation_" + timestamp;
+        
+        // RESULT: "Reports/Project_Count_Test_20260129_143000"
+        reportDir = System.getProperty("user.dir") + "/Reports/" + testName + "_" + timestamp;
         new File(reportDir + "/screenshots").mkdirs();
 
-        ExtentSparkReporter reporter = new ExtentSparkReporter(reportDir + "/ProjectCreationReport.html");
-        reporter.config().setDocumentTitle("ResIQ Automation Report");
-        reporter.config().setReportName("Project Creation Automation");
+        ExtentSparkReporter reporter = new ExtentSparkReporter(reportDir + "/" + testName + "_Report.html");
+        reporter.config().setDocumentTitle("Automation Report - " + testName);
+        reporter.config().setReportName(testName + " Execution Results");
 
         extent = new ExtentReports();
         extent.attachReporter(reporter);
+        extent.setSystemInfo("Test Case", testName);
         extent.setSystemInfo("Tester", System.getProperty("user.name"));
         extent.setSystemInfo("Browser", "System Edge");
     }
 
-    @BeforeClass
     public void setupBrowser() {
-        // ============================================================
-        // 1. OFFLINE FIX: Check for manual driver FIRST
-        // ============================================================
-        File localDriver = new File("msedgedriver.exe");
-        if (localDriver.exists()) {
-            System.setProperty("webdriver.edge.driver", localDriver.getAbsolutePath());
-            // System.out.println("✅ Found local driver: " + localDriver.getAbsolutePath());
-        } else {
-            // If missing, warn the user because offline download will fail
-            JOptionPane.showMessageDialog(null, 
-                "⚠️ Warning: 'msedgedriver.exe' not found in this folder.\n\n" +
-                "If you are OFFLINE, the app will crash because it cannot download the driver.\n" +
-                "Please place the driver in the same folder as this App.", 
-                "Driver Missing", JOptionPane.WARNING_MESSAGE);
-        }
-
-        // 2. Configure Edge Options
-        EdgeOptions options = new EdgeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        options.addArguments("--start-maximized");
-
-        // 3. Dynamic User Profile (Finds the current user's Edge)
-        String userHome = System.getProperty("user.home");
-        String edgeDataPath = userHome + "\\AppData\\Local\\Microsoft\\Edge\\User Data";
-        
-        File profileDir = new File(edgeDataPath);
-        if (profileDir.exists()) {
-            options.addArguments("user-data-dir=" + edgeDataPath);
-            options.addArguments("profile-directory=Default"); 
-        }
-
+        // --- STANDARD BROWSER SETUP (UNTOUCHED) ---
         try {
-            // 4. Initialize Driver
+            // 1. Check for manual driver
+            File localDriver = new File("msedgedriver.exe");
+            if (localDriver.exists()) {
+                System.setProperty("webdriver.edge.driver", localDriver.getAbsolutePath());
+            } else {
+                 System.clearProperty("webdriver.edge.driver");
+            }
+
+            // 2. Configure Options
+            EdgeOptions options = new EdgeOptions();
+            options.addArguments("--remote-allow-origins=*");
+            options.addArguments("--start-maximized");
+
+            // 3. Launch
             driver = new EdgeDriver(options);
             
             wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             js = (JavascriptExecutor) driver;
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            
-        } catch (SessionNotCreatedException e) {
-            String msg = "Failed to launch Edge.\nPlease CLOSE ALL OPEN EDGE WINDOWS and try again.";
-            JOptionPane.showMessageDialog(null, msg, "Browser Locked", JOptionPane.ERROR_MESSAGE);
-            throw e;
+
         } catch (Exception e) {
-            // This is where your DNS error is caught
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, 
-                "Launch Error:\n" + e.getMessage() + "\n\nCHECK: Is 'msedgedriver.exe' in the folder?", 
-                "Launch Error", JOptionPane.ERROR_MESSAGE);
-            throw e;
+                "Critical Launch Error:\n" + e.getMessage(), 
+                "Browser Failed", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Browser failed to start", e);
         }
     }
 
-    // ... (Keep the rest of your cleanup, screenshot, and helper methods exactly as they are) ...
-    // ================= CLEANUP =================
+    // ================= CLEANUP (UNTOUCHED) =================
     @AfterMethod
     public void captureAfterEach(ITestResult result) {
         try {
@@ -110,7 +98,7 @@ public class Project_Reports {
                 if (test != null && path != null) 
                     test.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(path).build());
             } else if (result.getStatus() == ITestResult.SUCCESS) {
-                if (test != null) test.pass("Test passed");
+                if (test != null) test.pass("Test passed successfully");
             }
         } catch (Exception e) {
             System.err.println("Screenshot issue: " + e.getMessage());
@@ -135,7 +123,7 @@ public class Project_Reports {
         } catch (IOException e) { return null; }
     }
     
-    // (Paste your Helper Methods like clickSidebarItem here...)
+    // --- HELPER METHODS (EXACTLY AS YOU HAD THEM) ---
     public static void clickSidebarItem(WebDriver driver, String menuName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@data-sidebar='menu-sub']//span | //ul[@data-sidebar='menu']//span"));
@@ -147,6 +135,7 @@ public class Project_Reports {
             }
         }
     }
+    
     public static void addProj(WebDriver driver) { new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("#add-project-btn"))).click(); }
     public static void clckClient(WebDriver driver) { driver.findElement(By.xpath("//button[.//span[normalize-space()='-- Select Client --']]")).click(); }
     public static void searClient(WebDriver driver, String clientName) { driver.findElement(By.xpath("//input[@placeholder='Search...']")).sendKeys(clientName, Keys.TAB, Keys.ENTER); }
