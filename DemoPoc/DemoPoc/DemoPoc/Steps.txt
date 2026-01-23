@@ -1,0 +1,2 @@
+1)Run the Kill Edge File and ensure all Edge* Browser Windows are closed
+2)Run the Exe File
