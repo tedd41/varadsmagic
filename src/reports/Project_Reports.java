@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.interactions.Actions; // Added missing import
+import org.openqa.selenium.interactions.Actions; 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
@@ -26,39 +26,43 @@ public class Project_Reports {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected JavascriptExecutor js;
-    protected ExtentReports extent;
+    
+    // --- STATIC VARIABLES (Shared across all tests in the list) ---
+    protected static ExtentReports extent;
+    protected static String reportDir;
+    
+    // Instance variable (Unique for each test method)
     protected ExtentTest test;
-    protected String reportDir;
 
-    // --- CHANGED: Run this BEFORE EACH CLASS so every test gets its own folder ---
-    @BeforeClass
-    public void setupTestEnvironment() {
-        setupReport();  // 1. Create unique folder name based on the class
-        setupBrowser(); // 2. Launch the browser
-    }
-
-    public void setupReport() {
-        // LOGIC CHANGE: Use the specific class name (e.g. "Project_Count_Test") for the folder
-        String testName = this.getClass().getSimpleName(); 
+    // ==========================================================
+    // 1. BEFORE SUITE (Runs ONCE at the very start)
+    //    Creates the "Execution_timestamp" folder
+    // ==========================================================
+    @BeforeSuite
+    public void setupSuite() {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         
-        // RESULT: "Reports/Project_Count_Test_20260129_143000"
-        reportDir = System.getProperty("user.dir") + "/Reports/" + testName + "_" + timestamp;
+        // Create ONE folder for this entire run
+        reportDir = System.getProperty("user.dir") + "/Reports/Execution_" + timestamp;
         new File(reportDir + "/screenshots").mkdirs();
 
-        ExtentSparkReporter reporter = new ExtentSparkReporter(reportDir + "/" + testName + "_Report.html");
-        reporter.config().setDocumentTitle("Automation Report - " + testName);
-        reporter.config().setReportName(testName + " Execution Results");
+        ExtentSparkReporter reporter = new ExtentSparkReporter(reportDir + "/Combined_Report.html");
+        reporter.config().setDocumentTitle("ResIQ Automation Report");
+        reporter.config().setReportName("Automation Execution Results");
 
         extent = new ExtentReports();
         extent.attachReporter(reporter);
-        extent.setSystemInfo("Test Case", testName);
         extent.setSystemInfo("Tester", System.getProperty("user.name"));
+        extent.setSystemInfo("Environment", "QA / Demo");
         extent.setSystemInfo("Browser", "System Edge");
     }
 
+    // ==========================================================
+    // 2. BEFORE CLASS (Runs before EACH selected test)
+    //    Opens a fresh browser for every test script
+    // ==========================================================
+    @BeforeClass
     public void setupBrowser() {
-        // --- STANDARD BROWSER SETUP (UNTOUCHED) ---
         try {
             // 1. Check for manual driver
             File localDriver = new File("msedgedriver.exe");
@@ -89,11 +93,14 @@ public class Project_Reports {
         }
     }
 
-    // ================= CLEANUP (UNTOUCHED) =================
+    // ==========================================================
+    // 3. AFTER METHOD (Logs Pass/Fail to the Report)
+    // ==========================================================
     @AfterMethod
     public void captureAfterEach(ITestResult result) {
         try {
             if (result.getStatus() == ITestResult.FAILURE) {
+                // Take screenshot and attach to the SHARED report
                 String path = takeScreenshot(result.getName() + "_FAIL");
                 if (test != null && path != null) 
                     test.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(path).build());
@@ -105,15 +112,29 @@ public class Project_Reports {
         }
     }
 
+    // ==========================================================
+    // 4. AFTER CLASS (Closes Browser for that specific test)
+    // ==========================================================
     @AfterClass(alwaysRun = true)
     public void tearDown() {
         if (driver != null) driver.quit();
+        // Note: We DO NOT save the report here yet. We wait for all tests to finish.
+    }
+
+    // ==========================================================
+    // 5. AFTER SUITE (Runs ONCE at the very end)
+    //    Saves the final Combined Report
+    // ==========================================================
+    @AfterSuite
+    public void tearDownSuite() {
         if (extent != null) extent.flush();
     }
 
+    // --- HELPER: Screenshot (Saves to the shared folder) ---
     public String takeScreenshot(String name) {
         try {
             TakesScreenshot ts = (TakesScreenshot) driver;
+            // Uses the static 'reportDir' so all screenshots go to the same folder
             String path = reportDir + "/screenshots/" + name + ".png";
             File src = ts.getScreenshotAs(OutputType.FILE);
             File dest = new File(path);
@@ -123,7 +144,7 @@ public class Project_Reports {
         } catch (IOException e) { return null; }
     }
     
-    // --- HELPER METHODS (EXACTLY AS YOU HAD THEM) ---
+    // --- NAVIGATION HELPERS (Same as before) ---
     public static void clickSidebarItem(WebDriver driver, String menuName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         List<WebElement> menuItems = driver.findElements(By.xpath("//ul[@data-sidebar='menu-sub']//span | //ul[@data-sidebar='menu']//span"));
@@ -143,7 +164,6 @@ public class Project_Reports {
     public static void selectCustomDropdown(WebDriver driver, String optionText) { new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'max-h-[300px]')]//button[span[text()='" + optionText + "']]"))).click(); }
     public static void clckPart(WebDriver driver) { driver.findElement(By.xpath("//button[.//span[normalize-space()='-- Select Partner --']]")).click(); }
     public static void clckStat(WebDriver driver) { driver.findElement(By.xpath("//button[.//span[normalize-space()='-- Select Status --']]")).click(); }
-
     public static void clckProjCat(WebDriver driver) { driver.findElement(By.xpath("//button[.//span[normalize-space()='-- Select Category --']]")).click(); }
     public static void clckProjMang(WebDriver driver) { driver.findElement(By.xpath("//button[.//span[normalize-space()='-- Select Manager --']]")).click(); }
     public static void searchManager(WebDriver driver, String managerName) { driver.findElement(By.xpath("//input[@placeholder='Search...']")).sendKeys(managerName, Keys.TAB, Keys.ENTER); }
